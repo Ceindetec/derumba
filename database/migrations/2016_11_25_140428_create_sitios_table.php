@@ -15,7 +15,24 @@ class CreateSitiosTable extends Migration
     {
         Schema::create('sitios', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->integer('municipio_id')->unsigned();
+            $table->string('direccion');
+            $table->string('geolocalizacion');
+            $table->string('telefono',15);
+            $table->string('horario');
+            $table->mediumText('detalle');
+            $table->string('estado');
+            $table->integer('marca_id')->unsigned();
             $table->timestamps();
+            $table->foreign('municipio_id')
+                ->references('id')
+                ->on('municipios')
+                ->onDelete('cascade');
+            $table->foreign('marca_id')
+                ->references('id')
+                ->on('marcas')
+                ->onDelete('cascade');
         });
     }
 
