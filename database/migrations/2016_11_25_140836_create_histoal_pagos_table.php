@@ -15,7 +15,14 @@ class CreateHistoalPagosTable extends Migration
     {
         Schema::create('histoal_pagos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('sitio_id')->unsigned();
+            $table->date('fecha_pago');
+            $table->date('fecha_vencimiento');
             $table->timestamps();
+            $table->foreign('sitio_id')
+                ->references('id')
+                ->on('sitios')
+                ->onDelete('cascade');
         });
     }
 

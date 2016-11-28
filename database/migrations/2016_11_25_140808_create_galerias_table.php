@@ -15,7 +15,13 @@ class CreateGaleriasTable extends Migration
     {
         Schema::create('galerias', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('url');
+            $table->integer('sitio_id')->unsigned();
             $table->timestamps();
+            $table->foreign('sitio_id')
+                ->references('id')
+                ->on('sitios')
+                ->onDelete('cascade');
         });
     }
 

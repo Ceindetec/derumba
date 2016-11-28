@@ -15,7 +15,15 @@ class CreateValorComentariosTable extends Migration
     {
         Schema::create('valor_comentarios', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('sitio_id')->unsigned();
+            $table->integer("valoracion");
+            $table->string("comentario");
+            $table->string("usuario_invitado");
             $table->timestamps();
+            $table->foreign('sitio_id')
+                ->references('id')
+                ->on('sitios')
+                ->onDelete('cascade');
         });
     }
 
