@@ -16,6 +16,4 @@ Route::get('/', function () {
 });
 
 
-Route::get('/test', function(){
-    return view("test");
-});
+Route::get('perfil', 'PropietarioController@editarPerfil')->name('editarPerfil');
