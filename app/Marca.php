@@ -13,4 +13,9 @@ class Marca extends Model
         'nit', 'razon', 'imagen',
     ];
 
+    public function getSitios(){
+        return $this->hasMany('App\Sitio');
+    }
+
+
 }

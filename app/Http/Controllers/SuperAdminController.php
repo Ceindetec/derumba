@@ -104,5 +104,74 @@ class SuperAdminController extends Controller
         return view("superAdmin.addMarcas");
     }
 
+    /**
+     * @return string
+     */
+    public function addSitios()
+    {
+        return view("superAdmin.addSitios");
+    }
+
+    /**
+     * @return string
+     */
+    public function getInfoUser(Request $request)
+    {
+        return $this->validatesRequestErrorBag;
+    }
+
+    /**
+     * @return string
+     */
+    public function autoCompleUsuarios(Request $request)
+    {
+        $usuarios = User::where("email","like","%".$request->input("nombre")."%")->where('rol','Propietario')->get();
+
+        $arrayUsuarios = array();
+        foreach ($usuarios as $usuario){
+            $arrayUsuarios[]=$usuario->email;
+        }
+        return $arrayUsuarios;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function traerUserXEmail(Request $request)
+    {
+        $user = User::where("email",$request->input("email"))->first();
+        $user->getMarcas;
+        $data["user"]=$user;
+        return view("superAdmin.marcas",$data);
+
+    }
+
+    /**
+     * @return string
+     */
+    public function addNuevaMarca(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+        $file = $request->file('file');
+        $name = time().$file->getClientOriginalName();
+        $file->move('image', $name);
+
+        $marca = new Marca($request->all());
+        $marca->imagen=$name;
+        $marca->user_id = $request->user_id;
+        $marca->save();
+            DB::commit();
+            $data=["estado"=>true,"mensaje"=>"exito"];
+        }catch (\Exception $e){
+            DB::rollBack();
+            $data=["estado"=>false,"mensaje"=>"error en la transaccion, intentar nuevamente.".$e->getMessage()];
+        }
+        return $data;
+
+    }
+
+
 
 }

@@ -34,6 +34,13 @@ Route::group(['middleware' => ['auth', 'superAdmin']], function () {
     Route::post('municipios','SuperAdminController@getMunicipios')->name('municipios');
 
     Route::get('addMarcas', 'SuperAdminController@addMarcas')->name('addMarcas');
+    Route::get('addSitios', 'SuperAdminController@addSitios')->name('addSitios');
+
+    Route::post('autoCompleUsuarios','SuperAdminController@autoCompleUsuarios')->name('autoCompleUsuarios');
+    Route::post('traerUserXEmail','SuperAdminController@traerUserXEmail')->name('traerUserXEmail');
+
+    Route::post('addNuevaMarca', 'SuperAdminController@addNuevaMarca')->name('addNuevaMarca');
+
 });
 
 Route::group(['middleware' => ['auth', 'propietario']], function () {
