@@ -23,8 +23,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('perfil', 'PropietarioController@editarPerfil')->name('editarPerfil');
-
 
 Route::group(['middleware' => ['auth', 'superAdmin']], function () {
 
@@ -44,6 +42,9 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
         return "hola propietario";
     })->name('propietario');
 
+    Route::get('propietario/perfil', 'PropietarioController@editarPerfil')->name('editarPerfil');
+    Route::post('propietario/setInfo', 'PropietarioController@setInfo')->name('setInfo');
+    Route::post('propietario/setContrasena', 'PropietarioController@setContrasena')->name('setContrasena');
 });
 
 Route::group(['middleware' => ['auth', 'administrador']], function () {

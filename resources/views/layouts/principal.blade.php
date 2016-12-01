@@ -75,7 +75,6 @@
 </section>
 
 
-{{--{!!Html::script('js/Chart.js')!!}--}}
 
 <!-- js placed at the end of the document so the pages load faster -->
 {!!Html::script('js/jquery.js')!!}
