@@ -23,7 +23,7 @@ class Propietario
     {
         switch($this->auth->user()->rol){
 
-            case 'superAdmin':
+            case 'SuperAdmin':
                 return redirect('superAdmin');
                 break;
             case 'propietario':

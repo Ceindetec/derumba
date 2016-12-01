@@ -6,11 +6,11 @@
 
 @section('content')
 
-<div class="row">
-    <div class="col-xs-12">
-        <h1><b>HOLA como TAS</b></h1>
+    <div class="row">
+        <div class="col-xs-12">
+            <h1><b>nuevos Sitios</b></h1>
+        </div>
     </div>
-</div>
 
 @endsection
 
