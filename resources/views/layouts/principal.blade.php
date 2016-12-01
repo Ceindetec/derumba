@@ -75,28 +75,20 @@
 </section>
 
 
-{{--{!!Html::script('js/Chart.js')!!}--}}
 
 <!-- js placed at the end of the document so the pages load faster -->
 {!!Html::script('js/jquery.js')!!}
 {!!Html::script('js/jquery-1.8.3.min.js')!!}
 {!!Html::script('plugins/bootstrap/js/bootstrap.min.js')!!}
+{!!Html::script('js/jquery.dcjqaccordion.2.7.js')!!}
+{!!Html::script('js/jquery.scrollTo.min.js')!!}
+{!!Html::script('js/jquery.nicescroll.js')!!}
+{!!Html::script('js/jquery.sparkline.js')!!}
+
+
+{!!Html::script('js/common-scripts.js')!!}
 {!!Html::script('plugins/gritter/js/jquery.gritter.js')!!}
-
-
-{{--{!!Html::script('js/jquery.dcjqaccordion.2.7.js')!!}--}}
-{{--{!!Html::script('js/jquery.scrollTo.min.js')!!}--}}
-{{--{!!Html::script('js/jquery.nicescroll.js')!!}--}}
-{{--{!!Html::script('js/jquery.sparkline.js')!!}--}}
-{{--{!!Html::script('js/common-scripts.js')!!}--}}
-
-<!--common script for all pages-->
-
-{{--<script type="text/javascript" src="assets/js/gritter-conf.js"></script>--}}
-
-<!--script for this page-->
-{{--<script src="assets/js/sparkline-chart.js"></script>--}}
-{{--<script src="assets/js/zabuto_calendar.js"></script>--}}
+{!!Html::script('js/gritter-conf.js')!!}
 {!!Html::script('js/inicio.js')!!}
 @yield('scripts')
 

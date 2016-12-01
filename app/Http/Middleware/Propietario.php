@@ -26,10 +26,10 @@ class Propietario
             case 'SuperAdmin':
                 return redirect('superAdmin');
                 break;
-            case 'propietario':
+            case 'Propietario':
                 //return redirect('propietario');
                 break;
-            case 'administrador':
+            case 'Administrador':
                 return redirect('administrador');
                 break;
             default :

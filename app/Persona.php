@@ -13,4 +13,8 @@ class Persona extends Model
         'documento', 'nombre', 'apellido', 'telefono',
     ];
 
+    public function getUser()
+    {
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }
