@@ -10,7 +10,7 @@ class Marca extends Model
 
 
     protected $fillable = [
-        'nit', 'nombre', 'imagen',
+        'nit', 'razon', 'imagen',
     ];
 
 }

@@ -17,12 +17,12 @@ class CreateSitiosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->integer('municipio_id')->unsigned();
-            $table->string('direccion');
-            $table->string('geolocalizacion');
-            $table->string('telefono',15);
-            $table->string('horario');
-            $table->mediumText('detalle');
-            $table->string('estado');
+            $table->string('direccion')->nullable();
+            $table->string('geolocalizacion')->nullable();
+            $table->string('telefono',15)->nullable();
+            $table->string('horario')->nullable();
+            $table->mediumText('detalle')->nullable();
+            $table->string('estado')->nullable();
             $table->integer('marca_id')->unsigned();
             $table->timestamps();
             $table->foreign('municipio_id')

@@ -33,13 +33,13 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             switch($this->auth->user()->rol){
 
-                case 'superAdmin':
+                case 'SuperAdmin':
                     return redirect('superAdmin');
                     break;
-                case 'admin':
+                case 'Administrador':
                     return redirect('administrador');
                     break;
-                case 'propietario':
+                case 'Propietario':
                     return redirect('propietario');
                     break;
                 default :

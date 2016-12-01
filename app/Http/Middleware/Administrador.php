@@ -23,13 +23,13 @@ class Administrador
     {
         switch($this->auth->user()->rol){
 
-            case 'superAdmin':
+            case 'SuperAdmin':
                 return redirect('superAdmin');
                 break;
-            case 'propietario':
+            case 'Propietario':
                // return redirect('propietario');
                 break;
-            case 'administrador':
+            case 'Administrador':
                 //return redirect('administrador');
                 break;
             default :

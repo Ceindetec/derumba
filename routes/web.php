@@ -31,7 +31,11 @@ Route::group(['middleware' => ['auth', 'superAdmin']], function () {
     Route::get('superAdmin', function(){
         return "Hola super admin";
     })->name('superAdmin');
+    Route::get('registroPropietario', 'SuperAdminController@registroPropietario')->name('registroPropietario');
+    Route::post('addPropietario', 'SuperAdminController@addPropietario')->name('addPropietario');
+    Route::post('municipios','SuperAdminController@getMunicipios')->name('municipios');
 
+    Route::get('addMarcas', 'SuperAdminController@addMarcas')->name('addMarcas');
 });
 
 Route::group(['middleware' => ['auth', 'propietario']], function () {
