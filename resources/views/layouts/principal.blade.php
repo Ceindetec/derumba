@@ -92,6 +92,19 @@
 {!!Html::script('js/inicio.js')!!}
 @yield('scripts')
 
+<script>
+    $(function () {
+        var CURRENT_URL = window.location.href;
+        // console.log(CURRENT_URL);
+        var contador = 1;
+        if(CURRENT_URL.split("/")[3]=="")
+            CURRENT_URL = CURRENT_URL.substring(0,CURRENT_URL.length-1);
+
+        $("#nav-accordion").find('a[href="' + CURRENT_URL + '"]').parent().addClass("active").parents("li").children("a").addClass("active");
+        $("#nav-accordion").find('a[href="' + CURRENT_URL + '"]').parent().parents("li").children("a").trigger("click");
+    });
+
+</script>
 
 </body>
 </html>

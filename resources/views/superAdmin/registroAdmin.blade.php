@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label for="telefono" class="col-sm-4 control-label">Telefono</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono">
+                                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Telefono" required>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <label for="nombre" class="col-sm-4 control-label">Nombre</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombres">
+                                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombres" required>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                             <div class="form-group">
                                 <label for="apellido" class="col-sm-4 control-label">Apellido</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellidos">
+                                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellidos" required>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                             <div class="form-group">
                                 <label for="correo" class="col-sm-4 control-label">Email</label>
                                 <div class="col-sm-8  correo ">
-                                    <input type="email" class="form-control " id="correo" name="email" placeholder="Email">
+                                    <input type="email" class="form-control " id="correo" name="email" placeholder="Email" required>
                                 </div>
 
                             </div>
@@ -90,7 +90,7 @@
                             <div class="form-group">
                                 <label for="nit" class="col-sm-4 control-label">Nit</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Nit">
+                                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Nit" required>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                 <label for="razon" class="col-sm-4 control-label">Razón Socia</label>
                                 <div class="col-sm-8">
                                     <input type="text" class="form-control" id="razon" name="razon"
-                                           placeholder="Razón Socia o Nombre">
+                                           placeholder="Razón Socia o Nombre" required>
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                             <div class="input-group">
                                 <label class="input-group-btn">
                                     <span class="btn btn-info">
-                                        Browse&hellip; <input type="file" style="display: none;" id="file" name="file">
+                                        Browse&hellip; <input type="file" style="display: none;" id="file" name="file" required>
                                     </span>
                                 </label>
                                 <input type="text" class="form-control" readonly>
@@ -138,7 +138,7 @@
                             <div class="form-group">
                                 <label for="nombreS" class="col-sm-4 control-label">Nombre</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="nombreS" name="nombreS" placeholder="Nombres">
+                                    <input type="text" class="form-control" id="nombreS" name="nombreS" placeholder="Nombres" required>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@
                             <div class="form-group">
                                 <label for="telefonoS" class="col-sm-4 control-label">Telefono</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="telefonoS" name="telefonoS" placeholder="Telefono">
+                                    <input type="text" class="form-control" id="telefonoS" name="telefonoS" placeholder="Telefono" required>
                                 </div>
                             </div>
                         </div>
