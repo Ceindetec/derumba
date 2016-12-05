@@ -57,6 +57,16 @@
 
     <script>
 
+        $(function () {
+
+            var formbuscarUser = $("#formbuscarUser");
+            formbuscarUser.submit(function (e) {
+                e.preventDefault();
+
+                traerUserXEmail($("#usuario").val());
+            });
+
+        });
 
         $("#infUser").on("submit","#formNuevaMarca",function (e) {
             e.preventDefault();
@@ -70,7 +80,7 @@
                 processData: false,  // tell jQuery not to process the data
                 contentType: false,   // tell jQuery not to set contentType
                 success: function (result) {
-
+                    traerUserXEmail($("#usuario").val());
 
                 },
                 error: function (error) {
