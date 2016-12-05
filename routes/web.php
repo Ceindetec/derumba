@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
     Route::post('propietario/setContrasena', 'PropietarioController@setContrasena')->name('setContrasena');
 
     Route::get('propietario/marcas', 'PropietarioController@editarMarcas')->name('marcas');
+    Route::post('propietario/setMarca', 'PropietarioController@updateImagenMarca')->name('updateImagenMarca');
 });
 
 Route::group(['middleware' => ['auth', 'administrador']], function () {

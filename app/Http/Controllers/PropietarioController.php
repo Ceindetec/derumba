@@ -63,8 +63,13 @@ class PropietarioController extends Controller
 
     public function editarMarcas()
     {
-        $marcas = Marca::where('user_id', '=', Auth::user()->id)->get();
-        $data['marcas'] = $marcas;
+        $usuario = Auth::user();
+        $data['marcas'] = $usuario->getMarcas;
         return view('propietario.marcas', $data);
+    }
+
+    public function updateImagenMarca(Request $request)
+    {
+        dd($request->all());
     }
 }
