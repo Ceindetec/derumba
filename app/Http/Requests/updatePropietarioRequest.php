@@ -24,7 +24,19 @@ class updatePropietarioRequest extends FormRequest
     public function rules()
     {
         return [
-            'telefono' => 'required|'
+            'telefono' => 'required|numeric',
+            'email' => 'required|email'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'telefono.required' => 'Debes ingresar un número de teléfono de contacto.',
+            'telefono.numeric' => 'El número de telefono debe contener solo números',
+
+            'email.required'  => 'Debes ingresr un correo electronico para inicio de sesión',
+            'email.email'  => 'El correo electronico no tiene un formato valido.',
         ];
     }
 }
