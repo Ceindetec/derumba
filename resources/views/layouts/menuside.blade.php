@@ -9,18 +9,26 @@
 
 
             <p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-            <h5 class="centered">{{Auth::user()->email}}</h5>
+            <h5 class="centered">{{explode("@",Auth::user()->email)[0]}}</h5>
 
 
             @if( Auth::user()->rol =="SuperAdmin")
-
-
-        <li class="mt">
-            <a class="{{ (\Request::route()->getName() == 'registroPropietario') ? 'active' : '' }}" href="{{route("registroPropietario")}}">
-                <i class="fa fa-dashboard"></i>
-                <span>Registrar Propietarios</span>
-            </a>
-        </li>
+                <li class="mt">
+                    <a class="{{ (\Request::route()->getName() == 'registroPropietario') ? 'active' : '' }}" href="{{route("registroPropietario")}}">
+                        <i class="fa fa-dashboard"></i>
+                        <span>Registrar Propietarios</span>
+                    </a>
+                </li>
+                <li class="sub-menu">
+                    <a href="javascript:;" >
+                        <i class="fa fa-desktop"></i>
+                        <span>Agregar</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a  href="{{route("addMarcas")}}">Marcas</a></li>
+                        <li><a  href="{{route("addSitios")}}">Sitios</a></li>
+                    </ul>
+                </li>
             @elseif ( Auth::user()->rol =="Propietario")
                 <li class="sub-menu">
                     <a href="{{route("editarPerfil")}}" >
@@ -32,16 +40,7 @@
                         <li><a href="{{route("marcas")}}">Marcas</a></li>
                     </ul>
                 </li>
-        <li class="sub-menu">
-            <a href="javascript:;" >
-                <i class="fa fa-desktop"></i>
-                <span>Agregar</span>
-            </a>
-            <ul class="sub">
-                <li><a  href="{{route("addMarcas")}}">Marcas</a></li>
-                <li><a  href="{{route("addSitios")}}">Sitios</a></li>
-            </ul>
-        </li>
+
             @endif
         @endif
         <li class="sub-menu">
