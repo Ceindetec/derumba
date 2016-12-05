@@ -97,23 +97,22 @@ function validarTexto($texto){
     }
 }
 
-$(".correo").blur(function(){
+function validarEmail(campo){
     expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if ($(this).val() != ""){
-        if (!expr.test($(this).val())) {
-            $(this).addClass("has-error");
-            $(this).focus();
+    if (campo.val() != ""){
+        if (!expr.test(campo.val())) {
+            campo.parent().addClass("has-error");
+            campo.focus();
         }
         else {
-            $(this).removeClass("has-error");
-            $(this).addClass("has-success");
+            campo.parent().removeClass("has-error");
+            campo.parent().addClass("has-success");
         }
     }
     else {
-        $(this).removeClass("has-error");
-        $(this).removeClass("has-success");
+        campo.parent().removeClass("has-error").removeClass("has-success");
     }
-});
+}
 
 function justNumbers(e)
 {

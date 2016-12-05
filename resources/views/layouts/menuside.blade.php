@@ -21,7 +21,17 @@
                 <span>Registrar Propietarios</span>
             </a>
         </li>
-
+            @elseif ( Auth::user()->rol =="Propietario")
+                <li class="sub-menu">
+                    <a href="{{route("editarPerfil")}}" >
+                        <i class="fa fa-desktop"></i>
+                        <span>Administrar</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{route("editarPerfil")}}">Informacion</a></li>
+                        <li><a href="{{route("marcas")}}">Marcas</a></li>
+                    </ul>
+                </li>
         <li class="sub-menu">
             <a href="javascript:;" >
                 <i class="fa fa-desktop"></i>

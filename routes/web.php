@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
     Route::get('propietario/perfil', 'PropietarioController@editarPerfil')->name('editarPerfil');
     Route::post('propietario/setInfo', 'PropietarioController@setInfo')->name('setInfo');
     Route::post('propietario/setContrasena', 'PropietarioController@setContrasena')->name('setContrasena');
+
+    Route::get('propietario/marcas', 'PropietarioController@editarMarcas')->name('marcas');
 });
 
 Route::group(['middleware' => ['auth', 'administrador']], function () {
