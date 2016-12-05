@@ -10,7 +10,12 @@
                     <div class="weather-2 pn">
                         <div class="weather-2-header">
                             <div class="row text-center">
-                                <p>{{$marca->razon}}</p>
+                                <p><i class="pull-left editar fa fa-pencil" aria-hidden="true" data-id="{{$marca->id}}" data-nit="{{$marca->nit}}" data-razon="{{$marca->razon}}" data-iamgen="{{$marca->imagen}}"></i>
+                                    {{(strlen($marca->razon)>26)?substr($marca->razon,0,23)."...":$marca->razon}}
+                                    <i class="pull-right eliminar fa fa-times" aria-hidden='true' data-id="{{$marca->id}}"
+                                                        data-toggle='confirmation' data-popout="true" data-placement='top'
+                                                        title='Eliminar?' data-btn-ok-label="Si" data-btn-cancel-label="No" aria-hidden="true"></i>
+                                </p>
 
                             </div>
                         </div><!-- /weather-2 header -->
@@ -39,7 +44,7 @@
                     <div class="form-group">
                         <label for="nit" class="col-sm-4 control-label">Nit</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="nit" name="nit" placeholder="Nit" required>
+                            <input type="text" class="form-control" name="nit" placeholder="Nit" required>
                         </div>
                     </div>
                 </div>
@@ -47,14 +52,13 @@
                     <div class="form-group">
                         <label for="razon" class="col-sm-4 control-label">Razón Socia</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="razon" name="razon"
+                            <input type="text" class="form-control" name="razon"
                                    placeholder="Razón Socia o Nombre" required>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-
                 <div class="col-sm-4 text-right">
                     <h4>Imagen de la marca</h4>
                 </div>
@@ -65,13 +69,12 @@
                                         Browse&hellip; <input type="file" style="display: none;" id="file" name="file" required>
                                     </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" onkeypress="return false;" onpaste="return false;" required>
                     </div>
                     <span class="help-block">
                                 Try selecting one or more files and watch the feedback
                             </span>
                 </div>
-
             </div>
 
         </div>

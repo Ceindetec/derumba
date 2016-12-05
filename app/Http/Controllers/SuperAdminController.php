@@ -173,5 +173,27 @@ class SuperAdminController extends Controller
     }
 
 
+    /**
+     * @return string
+     */
+    public function removeMarca(Request $request)
+    {
+        $marca = Marca::find($request->id)->delete();
+            $data=["estado"=>$marca];
+        return $data;
+    }
+
+    public function editMarca(Request $request){
+
+        if($request->file('file')){
+            $data=["estado"=>"si llego foto toca cambiarla"];
+        }else{
+            $data=["estado"=>"dejar la misma foto"];
+        }
+
+
+        return $data;
+    }
+
 
 }
