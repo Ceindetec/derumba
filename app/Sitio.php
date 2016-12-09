@@ -11,4 +11,15 @@ class Sitio extends Model
     protected $fillable = [
         'nombre', 'municipio_id', 'direccion','geolocalizacion','telefono','horario','detalle','estado','marca_id',
     ];
+
+    public function getGalerias()
+    {
+        return $this->hasMany('App\Galeria');
+    }
+
+    public function getMunicipio()
+    {
+        return $this->belongsTo('App\Municipio', 'municipio_id');
+    }
+
 }
