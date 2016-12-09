@@ -184,15 +184,65 @@ class SuperAdminController extends Controller
     }
 
     public function editMarca(Request $request){
-
+        $marca = Marca::find($request->id);
+        $marca->nit=$request->nit;
+        $marca->razon= $request->razon;
         if($request->file('file')){
-            $data=["estado"=>"si llego foto toca cambiarla"];
-        }else{
-            $data=["estado"=>"dejar la misma foto"];
+            unlink('image/'.utf8_decode($marca->imagen));
+            $file = $request->file('file');
+            $name = time().$file->getClientOriginalName();
+            $file->move('image', $name);
+            $marca->imagen=$name;
+
+        }
+        $marca->save();
+        $data=["estado"=>true];
+        return $data;
+    }
+
+    ////------- para administracion de Sitios
+
+    public function traerUserXEmailSitio(Request $request)
+    {
+        $user = User::where("email",$request->input("email"))->first();
+        $user->getMarcas;
+        $data["user"]=$user;
+        return view("superAdmin.marcasSitio",$data);
+
+    }
+
+    /**
+     * @return string
+     */
+    public function sitioXMarca(Request $request)
+    {
+        $sitios = Sitio::where("marca_id",$request->marca)->get();
+
+        foreach ($sitios as $sitio){
+            $sitio->departamento=$sitio->getMunicipio->departamento_id;
+            $municipios = Municipio::select('id', 'municipio')->where('departamento_id', $sitio->departamento)->get();
+            $arrayMunicipio = array();
+
+            foreach ($municipios as $municipio) {
+                $arrayMunicipio[$municipio->id] = $municipio->municipio;
+            }
+            $sitio->arrayMunicipio= $arrayMunicipio;
         }
 
+        $data["sitios"]=$sitios;
 
-        return $data;
+        $departamentos= Departamento::select('id','departamento')->get();
+
+        $arrayDepartamento = array();
+
+        foreach ($departamentos as $departamento){
+            $arrayDepartamento[$departamento->id]= $departamento->departamento;
+        }
+
+        $data["arrayDepartamento"]=$arrayDepartamento;
+
+        //dd($data);
+        return view("superAdmin.sitios",$data);
     }
 
 

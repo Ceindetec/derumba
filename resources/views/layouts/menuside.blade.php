@@ -22,7 +22,7 @@
                 <li class="sub-menu">
                     <a href="javascript:;" >
                         <i class="fa fa-desktop"></i>
-                        <span>Agregar</span>
+                        <span>Administrar</span>
                     </a>
                     <ul class="sub">
                         <li><a  href="{{route("addMarcas")}}">Marcas</a></li>

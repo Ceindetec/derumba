@@ -39,7 +39,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <h1><b>nuevas marcas</b></h1>
+            <h1><b>Administrar Marcas</b></h1>
         </div>
     </div>
     <div class="col-sm-8 col-sm-offset-2">
@@ -81,6 +81,7 @@
                     <h4 class="modal-title text-center" id="myModalLabel">Editar <b>"<span id="tituMarca"></span>"</b></h4>
                 </div>
                 {!!Form::open(['id'=>'formEditMarca','files' => true,'class'=>'form-horizontal','autocomplete'=>'off'])!!}
+                <input type="hidden"  name="id" id="idMarca">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">
@@ -180,7 +181,8 @@
                     processData: false,  // tell jQuery not to process the data
                     contentType: false,   // tell jQuery not to set contentType
                     success: function (result) {
-
+                        traerUserXEmail($("#usuario").val());
+                        $("#editarMarca").modal('hide');
 
                     },
                     error: function (error) {
@@ -225,7 +227,7 @@
             $("#tituMarca").text($(this).data("razon"));
             $("#nit").val($(this).data("nit"));
             $("#razon").val($(this).data("razon"));
-
+            $("#idMarca").val($(this).data("id"));
             $("#editarMarca").modal('show');
         });
 

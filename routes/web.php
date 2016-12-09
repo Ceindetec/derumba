@@ -43,6 +43,10 @@ Route::group(['middleware' => ['auth', 'superAdmin']], function () {
     Route::post('removeMarca', 'SuperAdminController@removeMarca')->name('removeMarca');
     Route::post('editMarca', 'SuperAdminController@editMarca')->name('editMarca');
 
+    Route::post('traerUserXEmailSitio','SuperAdminController@traerUserXEmailSitio')->name('traerUserXEmailSitio');
+    Route::post('sitioXMarca','SuperAdminController@sitioXMarca')->name('sitioXMarca');
+
+
 });
 
 Route::group(['middleware' => ['auth', 'propietario']], function () {
