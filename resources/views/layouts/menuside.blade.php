@@ -37,7 +37,8 @@
                     </a>
                     <ul class="sub">
                         <li><a href="{{route("editarPerfil")}}">Informacion</a></li>
-                        <li><a href="{{route("marcas")}}">Marcas</a></li>
+                        <li><a href="{{route("editarMarcas")}}">Marcas</a></li>
+                        <li><a href="{{route("editarSitios")}}">Sitios</a></li>
                     </ul>
                 </li>
 

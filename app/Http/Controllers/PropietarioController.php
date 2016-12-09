@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Departamento;
 use App\Http\Requests\updatePropietarioRequest;
 use App\Marca;
+use App\Municipio;
 use App\Persona;
+use App\Sitio;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,13 +66,73 @@ class PropietarioController extends Controller
 
     public function editarMarcas()
     {
-        $usuario = Auth::user();
-        $data['marcas'] = $usuario->getMarcas;
+        $data['marcas'] = Auth::user()->getMarcas;;
         return view('propietario.marcas', $data);
     }
 
     public function updateImagenMarca(Request $request)
     {
-        dd($request->all());
+        $marca = Marca::find($request->marca);
+        unlink("image/".utf8_decode($marca->imagen));
+
+        $file = $request->file('file');
+        $name = time().$file->getClientOriginalName();
+        $file->move('image', $name);
+
+        $marca->imagen=$name;
+        $marca->save();
+
+        return ["exito", $name];
+    }
+
+    public function editarSitios()
+    {
+        $data['marcas'] = Auth::user()->getMarcas;;
+        return view('propietario.sitios', $data);
+    }
+
+    public function getSitiosxMarca(Request $request)
+    {
+        $marca = Marca::find($request->marca);
+        $sitios = array();
+        foreach ($marca->getSitios as $sitio){
+            $sitio->municipio =  ucwords(strtolower($sitio->getMunicipio->municipio));
+            $sitio->departamento = ucwords(strtolower($sitio->getMunicipio->getDepartamento->departamento));
+            $sitio->foto = $sitio->getGalerias;
+            $sitios[] = $sitio;
+        }
+        return $sitios;
+    }
+
+    public function getSitio($id)
+    {
+        $sitio = Sitio::find($id);
+        if ($sitio != null){
+            $sitio->dpto_id = $sitio->getMunicipio->getDepartamento->id;
+            $data['sitio'] = $sitio;
+            $data['arrayDepartamento'] = $this->listarDepartamentos();
+
+            $municipios = $sitio->getMunicipio->getDepartamento->getMunicipios;
+            $arrayMunicipios = array();
+            foreach ($municipios as $municipio){
+                $arrayMunicipios[$municipio->id]= $municipio->municipio;
+            }
+            $data['arrayMunicipio'] = $arrayMunicipios;
+
+//            dd($data);
+            return view('propietario.editSitio', $data);
+        }
+        else
+            return redirect()->back();
+    }
+
+    public function listarDepartamentos()
+    {
+        $departamentos= Departamento::select('id','departamento')->get();
+        $arrayDepartamento = array();
+        foreach ($departamentos as $departamento){
+            $arrayDepartamento[$departamento->id]= $departamento->departamento;
+        }
+        return $arrayDepartamento;
     }
 }

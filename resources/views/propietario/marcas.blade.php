@@ -4,13 +4,14 @@
     <style>
         .pn {
             height: 100%;
-            /*box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);*/
         }
         h3{
             margin: 15px 0;
         }
-        .marca {
+        #foto, .marca{
             cursor: pointer;
+        }
+        .marca {
             transition: all .2s ease-out;
         }
         .marca:hover {
@@ -31,7 +32,7 @@
 @section('content')
     <div class="col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
         <div class="row">
-            <h1><b>Marcas registradas</b></h1>
+            <h1><b>Administrar Marcas Registradas</b></h1>
         </div>
         <div class="panel panel-default">
             <div class="panel-body">
@@ -40,7 +41,7 @@
                         <h3>Selecciona la marca que deseas modificar:</h3>
                     </div>
                 </div>
-                <div class="row" class="marginAA">
+                <div class="row marginAA">
                     <div class="col-sm-10 col-sm-offset-1">
                         @foreach($marcas as $marca)
                             <div class="col-lg-4 col-md-6 col-sm-6 mb">
@@ -51,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="row centered">
-                                        <img src="/image/{{$marca->imagen}}" class="img-circle" width="90" height="90">
+                                        <img src="/image/{{$marca->imagen}}" class="img-circle fotoMarca" width="90" height="90">
                                     </div>
                                     <div class="row text-center">
                                         <h3><b>{{$marca->getSitios->count()}} </b> {{($marca->getSitios->count()!=1)?" Sitios Registrados":" Sitio Registrado"}} </h3>
@@ -76,7 +77,7 @@
                                         Buscar&hellip; <input type="file" style="display: none;" id="file" name="file" required>
                                     </span>
                                 </label>
-                                <input type="text" class="form-control" onpaste="return false" onkeypress="return false" required>
+                                <input id="foto" type="text" class="form-control" onpaste="return false" onkeypress="return false" required>
                             </div>
                         </div>
                         <div class="col-sm-8 col-sm-offset-2 text-center" style="margin-top: 10px">
@@ -94,12 +95,30 @@
 @section('scripts')
     <script>
         var seleccionado = null;
+
+        $(document).on('change', ':file', function() {
+            var input = $(this),
+                    numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                    label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
         $(function () {
+            $(':file').on('fileselect', function(event, numFiles, label) {
+                var input = $(this).parents('.input-group').find(':text'),
+                        log = numFiles > 1 ? numFiles + ' files selected' : label;
+                if( input.length )
+                    input.val(log);
+                else
+                    if( log ) alert(log);
+            });
+
             $(".marca").click(function(){
                 $(".marca").removeClass("activar");
                 seleccionado = $(this);
                 seleccionado.addClass("activar");
                 $(".cargar").removeClass("hidden");
+                $('.notif').removeClass("alert-danger alert-success").addClass("hidden");
             })
             .mouseenter(function(){
                 $(".marca").removeClass("activar");
@@ -108,16 +127,37 @@
                 if (seleccionado != null)
                     seleccionado.addClass("activar");
             });
+
+            $("#foto").click(function(){
+                    $("#file").click().blur();
+            });
+
             var formImagen = $("#formImagen");
             formImagen.submit(function(e){
                 e.preventDefault();
                 if (seleccionado != null){
+                    var marca = seleccionado;
+                    var formData = new FormData($(this)[0]);
+                    formData.append('marca', marca.data("marca"));
                     $.ajax({
                         url: "{!! route('updateImagenMarca') !!}",
                         type: "POST",
-                        data: formImagen.serialize()+"&marca="+seleccionado.data("marca"),
+                        data: formData,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,   // tell jQuery not to set contentType
                         success: function (data) {
-
+                            if(data[0] == "exito"){
+                                marca.find("img")[0].src = "/image/"+data[1];
+                                $("#foto").val("");
+                                $("#file").empty();
+                                $(".cargar").addClass("hidden");
+                                $(".notif").removeClass("alert-danger hidden").addClass("alert-success").html("<b>Correcto!</b> La imagen de la marca ha sido actualizada con extio.");
+                                $(".marca").removeClass("activar");
+                                window.setTimeout(function(){
+                                    $('.notif').removeClass("alert-danger alert-success").addClass("hidden");
+                                }, 4000);
+                                seleccionado = null;
+                            }
 
                         },
                         error: function (error) {

@@ -55,8 +55,12 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
     Route::post('propietario/setInfo', 'PropietarioController@setInfo')->name('setInfo');
     Route::post('propietario/setContrasena', 'PropietarioController@setContrasena')->name('setContrasena');
 
-    Route::get('propietario/marcas', 'PropietarioController@editarMarcas')->name('marcas');
+    Route::get('propietario/marcas', 'PropietarioController@editarMarcas')->name('editarMarcas');
     Route::post('propietario/setMarca', 'PropietarioController@updateImagenMarca')->name('updateImagenMarca');
+
+    Route::get('propietario/sitios', 'PropietarioController@editarSitios')->name('editarSitios');
+    Route::post('propietario/getSitios', 'PropietarioController@getSitiosxMarca')->name('getSitiosxMarca');
+    Route::get("propietario/sitio/{id}", 'PropietarioController@getSitio')->name('getSitio');
 });
 
 Route::group(['middleware' => ['auth', 'administrador']], function () {
