@@ -8,15 +8,17 @@ $.ajaxSetup({
 
 var modalBs = $('#modalBs');
 var modalBsContent = $('#modalBs').find(".modal-content");
+
 $(function(){
    
 handleAjaxModal();
-})
+});
 
 
 
 
 function handleAjaxModal() {
+
 
     
     // Limpia los eventos asociados para elementos ya existentes, asi evita duplicación
@@ -26,11 +28,13 @@ function handleAjaxModal() {
 
     // Configura evento del link para aquellos para los que desean abrir popups
     $("a[data-modal]").on("click", function (e) {
-        var dataModalValue = $(this).data("modal");
 
+        var dataModalValue = $(this).data("modal");
         modalBsContent.load(this.href, function (response, status, xhr) {
+
             switch (status) {
                 case "success":
+
                     modalBs.modal({ backdrop: 'static', keyboard: false }, 'show');
 
                     if (dataModalValue == "modal-lg") {

@@ -74,11 +74,16 @@
     <!--footer end-->
 </section>
 
-
+<div id='modalBs' class='modal fade'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 
 <!-- js placed at the end of the document so the pages load faster -->
 {!!Html::script('js/jquery.js')!!}
-{!!Html::script('js/jquery-1.8.3.min.js')!!}
+{{--{!!Html::script('js/jquery-1.8.3.min.js')!!}--}}
 {!!Html::script('plugins/bootstrap/js/bootstrap.min.js')!!}
 {!!Html::script('js/jquery.dcjqaccordion.2.7.js')!!}
 {!!Html::script('js/jquery.scrollTo.min.js')!!}
@@ -105,6 +110,8 @@
     });
 
 </script>
+
+
 
 </body>
 </html>
