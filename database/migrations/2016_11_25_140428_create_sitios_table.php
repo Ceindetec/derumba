@@ -21,6 +21,7 @@ class CreateSitiosTable extends Migration
             $table->string('geolocalizacion')->nullable();
             $table->string('telefono',15)->nullable();
             $table->string('horario')->nullable();
+            $table->string('genero')->nullable();
             $table->mediumText('detalle')->nullable();
             $table->string('estado')->nullable();
             $table->integer('marca_id')->unsigned();

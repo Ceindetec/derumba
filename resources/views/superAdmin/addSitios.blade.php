@@ -19,8 +19,7 @@
         }
 
         .eliminar {
-            margin-right: 20px;
-            margin-top: 5px;
+
             cursor: pointer;
         }
         .editar {
@@ -148,6 +147,7 @@
     {!!Html::script('plugins/bootstrapConfirmation/bootstrap-confirmation.min.js')!!}
 
     <script>
+        var marcaActiva;
         // We can attach the `fileselect` event to all file inputs on the page
         $(document).on('change', ':file', function() {
             var input = $(this),
@@ -198,6 +198,10 @@
                     }
                 });
             });
+
+
+
+
         });
 
 
@@ -207,18 +211,75 @@
             formEditMarca.reset();
         });
 
+
         $("#infUser").on("click", ".pn",function () {
             $(".pn").removeClass("marcaSelect");
             $(this).addClass("marcaSelect");
+            marcaActiva=$(this).data("idmarca");
+            sitioXMarca();
 
+        });
+
+
+        function sitioXMarca() {
             $.ajax({
                 type: "POST",
                 context: document.body,
                 url: '{{route('sitioXMarca')}}',
-                data: {"marca": $(this).data("idmarca")},
+                data: {"marca": marcaActiva},
                 success: function (data) {
-                     console.log(data);
+                    //console.log(data);
                     $("#infSitios").html(data);
+                    $(".eliminar").each(function () {
+                        $(this).confirmation({
+                            onConfirm: function () {
+                                removeSitio($(this).data("id"));
+                            }
+                        });
+                    });
+                },
+                error: function () {
+                    console.log('ok');
+                }
+            });
+        }
+
+        function removeSitio(id) {
+            $.ajax({
+                type: "POST",
+                context: document.body,
+                url: '{{route('removeSitio')}}',
+                data: {"id": id},
+                success: function (data) {
+
+                    sitioXMarca()
+                },
+                error: function () {
+                    console.log('ok');
+                }
+            });
+        }
+
+
+        $("#infSitios").on("click",".editar",function (e) {
+            e.preventDefault();
+            var id=$(this).data("id");
+            var formularioEdit=$("#formActualizarSitio"+id);
+           // console.log(formularioEdit.serialize());
+            $.ajax({
+                type: "POST",
+                context: document.body,
+                url: '{{route('editarSitio')}}',
+                data: formularioEdit.serialize()+"&idSitio="+id,
+                success: function (data) {
+
+                    if(data=="exito"){
+                        var html='<div class="alert alert-success alert-dismissible">'+
+                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+                        '<strong>Perfecto!</strong> La información fue almacenada correctamente'+
+                        '</div>';
+                        $("#alertEdit"+id).html(html);
+                    }
                 },
                 error: function () {
                     console.log('ok');
@@ -226,6 +287,51 @@
             });
 
         });
+
+        $("#infSitios").on("submit","#formNuevoSitio",function (e) {
+            e.preventDefault();
+            var formNuevoSitio= $("#formNuevoSitio");
+            $.ajax({
+                type: "POST",
+                context: document.body,
+                url: '{{route('nuevoSitio')}}',
+                data: formNuevoSitio.serialize()+"&marca_id="+marcaActiva,
+                success: function (data) {
+                    sitioXMarca();
+                },
+                error: function () {
+                    console.log('ok');
+                }
+            });
+
+        });
+
+        $("#infSitios").on("change","#departamento", function () {
+            if($("#departamento").val()==""){
+                //alert("el id es nulo");
+                $("#municipio_id").empty();
+                $("#municipio_id").append("<option value=''>Selecciona un Municipio</option>");
+            }else{
+                //alert("el id es "+$("#departamento").val());
+                $.ajax({
+                    type: "POST",
+                    context: document.body,
+                    url: '{{route('municipios')}}',
+                    data: { 'id' : $("#departamento").val()},
+                    success: function (data) {
+                        $("#municipio_id").empty();
+                        $.each(data,function (index,valor) {
+                            $("#municipio_id").append('<option value='+index+'>'+valor+'</option>');
+
+                        });
+                    },
+                    error: function (data) {
+                    }
+                });
+            }
+
+        });
+
 
         $("#infUser").on("submit","#formNuevaMarca",function (e) {
             e.preventDefault();

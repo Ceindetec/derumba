@@ -21,7 +21,7 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('inicio');
 
 
 Route::group(['middleware' => ['auth', 'superAdmin']], function () {
@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth', 'superAdmin']], function () {
 
     Route::post('traerUserXEmailSitio','SuperAdminController@traerUserXEmailSitio')->name('traerUserXEmailSitio');
     Route::post('sitioXMarca','SuperAdminController@sitioXMarca')->name('sitioXMarca');
+    Route::post('editarSitio','SuperAdminController@editarSitio')->name('editarSitio');
+    Route::post('nuevoSitio','SuperAdminController@nuevoSitio')->name('nuevoSitio');
+    Route::post('removeSitio','SuperAdminController@removeSitio')->name('removeSitio');
 
 
 });
@@ -82,3 +85,4 @@ Route::group(['middleware' => ['auth', 'administrador']], function () {
 
 });
 
+Route::get('getEstablecimientos', 'WebServiceController@getEstablecimientos')->name('getEstablecimientos');

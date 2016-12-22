@@ -23,8 +23,10 @@ class Sitio extends Model
     }
 
     public function getMarca()
+    public function getPortada()
     {
         return $this->belongsTo('App\Marca', 'marca_id');
+        return $this->hasOne('App\Portada');
     }
 
 }

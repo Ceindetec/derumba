@@ -13,6 +13,7 @@ return array(
     'CreateMunicipiosTable' => $baseDir . '/database/migrations/2016_11_25_140418_create_municipios_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100011_create_password_resets_table.php',
     'CreatePersonasTable' => $baseDir . '/database/migrations/2016_11_25_140318_create_personas_table.php',
+    'CreatePortadasTable' => $baseDir . '/database/migrations/2016_12_21_101924_create_portadas_table.php',
     'CreateSitiosTable' => $baseDir . '/database/migrations/2016_11_25_140428_create_sitios_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000010_create_users_table.php',
     'CreateValorComentariosTable' => $baseDir . '/database/migrations/2016_11_25_140857_create_valor_comentarios_table.php',
