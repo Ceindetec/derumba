@@ -22,4 +22,9 @@ class Sitio extends Model
         return $this->belongsTo('App\Municipio', 'municipio_id');
     }
 
+    public function getMarca()
+    {
+        return $this->belongsTo('App\Marca', 'marca_id');
+    }
+
 }

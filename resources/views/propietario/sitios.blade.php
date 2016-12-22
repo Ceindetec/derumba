@@ -132,7 +132,8 @@
 
             $("#sitios").on("click",".sitio",function () {
                 window.location="/propietario/sitio/"+$(this).data('marca');
-//                $(".marca").removeClass("activar");
+//
+//                  $(".marca").removeClass("activar");
 //                seleccionado = $(this);
 //                seleccionado.addClass("activar");
 //                $(".cargar").removeClass("hidden");

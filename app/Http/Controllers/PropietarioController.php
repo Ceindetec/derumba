@@ -107,7 +107,9 @@ class PropietarioController extends Controller
     public function getSitio($id)
     {
         $sitio = Sitio::find($id);
-        if ($sitio != null){
+        if ($sitio == null || $sitio->getMarca->user_id != Auth::user()->id)
+            return redirect()->back();
+        else{
             $sitio->dpto_id = $sitio->getMunicipio->getDepartamento->id;
             $data['sitio'] = $sitio;
             $data['arrayDepartamento'] = $this->listarDepartamentos();
@@ -118,12 +120,27 @@ class PropietarioController extends Controller
                 $arrayMunicipios[$municipio->id]= $municipio->municipio;
             }
             $data['arrayMunicipio'] = $arrayMunicipios;
-
+            $data['municipio'] = Municipio::find($sitio->municipio_id);
 //            dd($data);
             return view('propietario.editSitio', $data);
         }
-        else
+    }
+
+    public function editHorarios($id)
+    {
+        $sitio = Sitio::find($id);
+        if ($sitio == null || $sitio->getMarca->user_id != Auth::user()->id)
             return redirect()->back();
+        else{
+            $data['sitio'] = $sitio;
+            return view('propietario.modalHorarios', $data);
+        }
+    }
+
+    public function updateInfoSitio(Request $request)
+    {
+        $sitio = Sitio::find($request->sitio)->update($request->all());
+        return "exito";
     }
 
     public function listarDepartamentos()

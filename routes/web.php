@@ -65,6 +65,12 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
     Route::get('propietario/sitios', 'PropietarioController@editarSitios')->name('editarSitios');
     Route::post('propietario/getSitios', 'PropietarioController@getSitiosxMarca')->name('getSitiosxMarca');
     Route::get("propietario/sitio/{id}", 'PropietarioController@getSitio')->name('getSitio');
+    Route::get('propietario/horarios/{id}', 'PropietarioController@editHorarios')->name('editHorarios');
+    Route::post('propietario/updateInfo', 'PropietarioController@updateInfoSitio')->name('updateInfoSitio');
+
+    Route::get('mapa', function(){
+        return view('propietario.mapa2');
+    })->name('otra');
 });
 
 Route::group(['middleware' => ['auth', 'administrador']], function () {
