@@ -15,13 +15,9 @@ class CreatePortadasTable extends Migration
     {
         Schema::create('portadas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('sitio_id')->unsigned();
             $table->mediumText('portada');
             $table->timestamps();
-            $table->foreign('sitio_id')
-                ->references('id')
-                ->on('sitios')
-                ->onDelete('cascade');
+
         });
     }
 

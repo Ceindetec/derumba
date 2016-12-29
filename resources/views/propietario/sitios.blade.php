@@ -96,7 +96,7 @@
                     success: function (data) {
                         var html = "";
                         $.each(data,function (index,valor) {
-                            ruta = (valor['foto'].length != 0)?valor['foto'][0]['url']:"default.jpg";
+                            ruta = (valor['foto'].length != 0)?"data:image/jpg;base64,"+valor['foto']['portada']:"/image/default.jpg";
                             html = html + "<div class='col-lg-4 col-md-6 col-sm-6 mb'>" +
                                             "<div class='weather-2 pn sitio' data-marca='"+valor['id']+"'>" +
                                                 "<div class='weather-2-header'>" +
@@ -105,7 +105,7 @@
                                                     "</div>" +
                                                 "</div>" +
                                                 "<div class='row centered'>" +
-                                                    "<img src='/image/"+ruta+"' class='img-circle fotoMarca' width='90' height='90'>" +
+                                                    "<img src='"+ruta+"' class='img-circle fotoMarca' width='90' height='90'>" +
                                                 "</div>" +
                                                 "<div class='row text-center'>" +
                                                     "<h4><b>"+valor['municipio']+"</b><br>"+valor['departamento']+"</h4>" +

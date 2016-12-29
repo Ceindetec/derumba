@@ -70,6 +70,10 @@ Route::group(['middleware' => ['auth', 'propietario']], function () {
     Route::get("propietario/sitio/{id}", 'PropietarioController@getSitio')->name('getSitio');
     Route::get('propietario/horarios/{id}', 'PropietarioController@editHorarios')->name('editHorarios');
     Route::post('propietario/updateInfo', 'PropietarioController@updateInfoSitio')->name('updateInfoSitio');
+    Route::post('subirImagenGaleria', 'PropietarioController@subirImagenGaleria')->name('subirImagenGaleria');
+    Route::post('deleteImgGaleria', 'PropietarioController@deleteImgGaleria')->name('deleteImgGaleria');
+    Route::post('subirImgPerfil', 'PropietarioController@subirImgPerfil')->name('subirImgPerfil');
+
 
     Route::get('mapa', function(){
         return view('propietario.mapa2');
