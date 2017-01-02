@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Departamento;
+use App\Galeria;
 use App\Http\Requests\updatePropietarioRequest;
 use App\Marca;
 use App\Municipio;
 use App\Persona;
+use App\Portada;
 use App\Sitio;
 use App\User;
 use Illuminate\Http\Request;
@@ -98,7 +100,7 @@ class PropietarioController extends Controller
         foreach ($marca->getSitios as $sitio){
             $sitio->municipio =  ucwords(strtolower($sitio->getMunicipio->municipio));
             $sitio->departamento = ucwords(strtolower($sitio->getMunicipio->getDepartamento->departamento));
-            $sitio->foto = $sitio->getGalerias;
+            $sitio->foto = $sitio->getPortada;
             $sitios[] = $sitio;
         }
         return $sitios;
@@ -121,6 +123,9 @@ class PropietarioController extends Controller
             }
             $data['arrayMunicipio'] = $arrayMunicipios;
             $data['municipio'] = Municipio::find($sitio->municipio_id);
+
+            $data['imageSlider'] = Galeria::where('sitio_id', $sitio->id)->get();
+
 //            dd($data);
             return view('propietario.editSitio', $data);
         }
@@ -152,4 +157,91 @@ class PropietarioController extends Controller
         }
         return $arrayDepartamento;
     }
+
+    public function subirImagenGaleria(Request $request)
+    {
+//
+        $file = $request->inputGalery[0];
+
+        //dd($file);
+//        foreach ($files as $file){
+//            //$type=explode("/", $file->getMimeType());
+//            dd($file->extension());
+//        }
+
+        if ($file != null) {
+//            $fotos = $fotos[0];
+//
+//            $extension = explode(".", $fotos->getClientOriginalName());
+//            $cantidad = count($extension) - 1;
+//            $extension = $extension[$cantidad];
+//            $nombre = time(). $request->file_id. "." . $extension;
+//
+//            $fotos->move('image', utf8_decode($nombre));
+
+            $imagedata = file_get_contents($file);
+
+            $base64 = base64_encode($imagedata);
+
+            $galeria = new Galeria();
+            $galeria->extension=$file->getClientOriginalExtension();
+            $galeria->data64 = $base64;
+            $galeria->sitio_id = $request->sitio_id;
+            $galeria->save();
+
+            return json_encode(array('data' => $base64, 'id' => $galeria->id));
+        }
+        else
+            return json_encode(array('error'=>'Archivo no permitido'));
+    }
+
+
+    /**
+     * @return string
+     */
+    public function deleteImgGaleria(Request $request)
+    {
+        $affectedRows = Galeria::where('id', $request->id)->delete();
+        if ($affectedRows > 0){
+            return "exito";
+        }else{
+            return "error";
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function subirImgPerfil(Request $request)
+    {
+        $file = $request->imagenes[0];
+
+        if ($file != null) {
+
+            $imagedata = file_get_contents($file);
+            $base64 = base64_encode($imagedata);
+
+            $sitio = Sitio::find($request->sitio_id);
+
+            if($sitio->portada_id==1){
+                $portada = new Portada();
+                $portada->portada = $base64;
+                $portada->save();
+            }else{
+                $portada = Portada::find($sitio->portada_id);
+                $portada->portada = $base64;
+                $portada->save();
+            }
+
+            $sitio->portada_id = $portada->id;
+            $sitio->save();
+
+            return ['data' => $base64, 'id' => $portada->id];
+        }
+        else
+            return ['error'=>'Archivo no permitido'];
+    }
+
+
+
 }

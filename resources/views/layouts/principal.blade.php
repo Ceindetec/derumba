@@ -14,6 +14,7 @@
             <!-- Custom styles for this template -->
     {!!Html::style('css/style.css')!!}
     {!!Html::style('css/style-responsive.css')!!}
+    {!!Html::style('css/font-awesome.css')!!}
     @yield('style')
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

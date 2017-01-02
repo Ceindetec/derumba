@@ -245,5 +245,43 @@ class SuperAdminController extends Controller
         return view("superAdmin.sitios",$data);
     }
 
+    /**
+     * @return string
+     */
+    public function editarSitio(Request $request)
+    {
+        $sitio=Sitio::find($request->idSitio)->update($request->all());
+        return "exito";
+    }
+
+    /**
+     * @return string
+     */
+    public function nuevoSitio(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $sitio = new Sitio($request->all());
+            $sitio->save();
+
+            DB::commit();
+            $data=["estado"=>true,"mensaje"=>"exito"];
+        }catch (\Exception $e){
+            DB::rollBack();
+            $data=["estado"=>false,"mensaje"=>"error en la transaccion, intentar nuevamente.".$e->getMessage()];
+        }
+        return $data;
+
+    }
+
+    /**
+     * @return string
+     */
+    public function removeSitio(Request $request)
+    {
+        $sitio = Sitio::find($request->id)->delete();
+        $data=["estado"=>$sitio];
+        return $data;
+    }
 
 }
